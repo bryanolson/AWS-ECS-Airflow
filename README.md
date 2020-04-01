@@ -43,11 +43,11 @@ This tutorial is built off of the work of Axel Furlan and his [amazing guide]([h
 ## Step 5) Create Task Definitions (ECS)
 
 - Within [ECS]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/)) select Task Definitions
-- 
+- TODO
 
 ## Step 6) Create Services (ECS)
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+- TODO
 
 ## Security Group Settings
 
