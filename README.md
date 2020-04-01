@@ -16,7 +16,16 @@ This tutorial is built off of the work of Axel Furlan and his [amazing guide]([h
 - Follow instructions to authenticate your Docker client, tag image and push to ECR
 - Verify ECR image
 
-## Step 3) Create PostGreSQL Database (RDS v9.6)
+## Step 3) Create Cluster (ECS)
+
+- Navigate to [Elastic Container Service (ECS)]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/))
+- Create Cluster
+- Select Networking Only (this guide will utilize Fargate tasks)
+- Add Cluster name
+- Create VPC with Subnet 1 only
+- Create Cluster
+
+## Step 4) Create PostGreSQL Database (RDS v9.6)
 
 - [Navigate to Relational Database Service (RDS)]([https://aws.amazon.com/rds/](https://aws.amazon.com/rds/))
 - Create database
@@ -31,14 +40,7 @@ This tutorial is built off of the work of Axel Furlan and his [amazing guide]([h
 - Within Additional configuration, create Initial database name
 - Create database
 
-## Step 4) Create Cluster (ECS)
 
-- Navigate to [Elastic Container Service (ECS)]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/))
-- Create Cluster
-- Select Networking Only (this guide will utilize Fargate tasks)
-- Add Cluster name
-- Create VPC with Subnet 1 only
-- Create Cluster
 
 ## Step 5) Create Task Definitions (ECS)
 
