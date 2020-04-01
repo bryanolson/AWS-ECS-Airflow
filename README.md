@@ -19,7 +19,7 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide]([htt
 ## Step 3) Create Cluster (ECS)
 
 - Navigate to [Elastic Container Service (ECS)]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/))
-- Create Cluster
+- Create Cluster (named airflow-celery)
 - Select Networking Only (this guide will utilize Fargate tasks)
 - Add Cluster name
 - Create VPC with Subnet 1 only
@@ -35,10 +35,11 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide]([htt
 - Select Free tier
 - Modify DB instance identifier
 - Change username to airflow
-- Make a unique password
+- Make a unique password (to be used in Task Definition below)
 - Within Connectivity, select the VPC of your ECR cluster
 - Within Additional configuration, create Initial database name
 - Create database
+- Once created, navigate to database and make note of Endpoint URL (to be used in Task Definition below)
 
 
 
@@ -108,8 +109,8 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide]([htt
 
 #### Scheduler Container Definitions
 
-|Settings|     ||
-|----------------|-------------|-------------|
+|Settings|     |
+|----------------|-------------|
 |Image|ECR/airflow:latest| 
 |Command|scheduler| 
 
@@ -122,7 +123,7 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide]([htt
 |POSTGRES_PASSWORD    |(RDS Admin Password)| 
 |POSTGRES_PORT    |5432  | 
 |POSTGRES_USER    |airflow  | 
-|REDIS_HOST    |redis-service-master.local  | 
+|REDIS_HOST    |redis-service.local  | 
 
 #### Webserver
 
@@ -153,7 +154,7 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide]([htt
 |POSTGRES_PASSWORD    |(RDS Admin Password)| 
 |POSTGRES_PORT    |5432  | 
 |POSTGRES_USER    |airflow  | 
-|REDIS_HOST    |redis-service-master.local  | 
+|REDIS_HOST    |redis-service.local  | 
 
 #### Worker
 
@@ -188,22 +189,97 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide]([htt
 
 ## Step 6) Create Services (ECS)
 
-- TODO
+- Within [ECS]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/)) select Cluster -> Services -> Create
+- Create 5 services (Flower, Redis, Scheduler, Webserver, Worker)
 
+#### Flower Service
+|Settings|     |
+|----------------|-------------|
+|Launch type|FARGATE |  
+|Task Definition    |airflow-flower  |  
+|Cluster    |airflow-celery|
+|Service name|flower-service|
+|Number of tasks|1| 
+|Cluster VPC|(select VPC created with Cluster)| 
+|Subnets|Subnet 1 (10.0.0.0/24)| 
+|Security Groups|Master Security Group| 
+|Auto-assign public IP|Enabled| 
+#### Redis Service
+|Settings|     |
+|----------------|-------------|
+|Launch type|FARGATE |  
+|Task Definition    |airflow-redis  |  
+|Cluster    |airflow-celery|
+|Service name|redis-service|
+|Number of tasks|1| 
+|Cluster VPC|(select VPC created with Cluster)| 
+|Subnets|Subnet 1 (10.0.0.0/24)| 
+|Security Groups|Master Security Group| 
+|Auto-assign public IP|Enabled| 
+#### Scheduler Service
+|Settings|     |
+|----------------|-------------|
+|Launch type|FARGATE |  
+|Task Definition    |airflow-scheduler  |  
+|Cluster    |airflow-celery|
+|Service name|scheduler-service|
+|Number of tasks|1| 
+|Cluster VPC|(select VPC created with Cluster)| 
+|Subnets|Subnet 1 (10.0.0.0/24)| 
+|Security Groups|Master Security Group| 
+|Auto-assign public IP|Enabled| 
+#### Worker Service
+|Settings|     |
+|----------------|-------------|
+|Launch type|FARGATE |  
+|Task Definition    |airflow-worker  |  
+|Cluster    |airflow-celery|
+|Service name|worker-service|
+|Number of tasks|1| 
+|Cluster VPC|(select VPC created with Cluster)| 
+|Subnets|Subnet 1 (10.0.0.0/24)| 
+|Security Groups|Master Security Group| 
+|Auto-assign public IP|Enabled| 
+#### Webserver Service
+|Settings|     |
+|----------------|-------------|
+|Launch type|FARGATE |  
+|Task Definition    |airflow-webserver  |  
+|Cluster    |airflow-celery|
+|Service name|webserver-service|
+|Number of tasks|1| 
+|Cluster VPC|(select VPC created with Cluster)| 
+|Subnets|Subnet 1 (10.0.0.0/24)| 
+|Security Groups|Webserver Security Group| 
+|Auto-assign public IP|Enabled| 
 ## Security Group Settings
 
-### Inbound Rules
+### Webserver Inbound Rules
 
 |                |Protocol     |Port Range  |Source|
 |----------------|-------------|------------|------|
 |All TCP         |TCP|0-65535  |(Master Security Group)                  |
 |All TCP         |TCP|5432  | (PostgreSQL Security Group)     |
-|Custom TCP Rule |TCP|8080     | (Static IP for Web UI Access)|
+|Custom TCP Rule |TCP|8080     | (Your Static IP for Web UI Access)|
 
-### Outbound Rules
+### Webserver Outbound Rules
+
+|                |Protocol     |Port Range  |Source|
+|----------------|-------------|------------|------|
+|All TCP         |TCP|0-65535  | (Master Security Group)|
+|All TCP         |TCP|5432  | (PostgreSQL Security Group)     |
+|Custom TCP Rule |TCP|8080     | (Your Static IP for Web UI Access)|
+
+### Master Inbound Rules
+
+|                |Protocol     |Port Range  |Source|
+|----------------|-------------|------------|------|
+|All TCP         |TCP|0-65535  |(Master Security Group)|
+|All TCP         |TCP|5432  | (PostgreSQL Security Group)     |
+
+### Master Outbound Rules
 
 |                |Protocol     |Port Range  |Source|
 |----------------|-------------|------------|------|
 |All TCP         |TCP|0-65535  | (Master Security Group)                   |
 |All TCP         |TCP|5432  | (PostgreSQL Security Group)     |
-|Custom TCP Rule |TCP|8080     | (Static IP for Web UI Access)|
