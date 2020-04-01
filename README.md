@@ -1,6 +1,6 @@
 # Deploying Apache Airflow on AWS
 
-This tutorial is built off of the work of Axel Furlan and his [amazing guide]([https://towardsdatascience.com/how-to-deploy-apache-airflow-with-celery-on-aws-ce2518dbf631](https://towardsdatascience.com/how-to-deploy-apache-airflow-with-celery-on-aws-ce2518dbf631)), but will expand upon on setup details that were pain points for my own project. 
+This tutorial is built off of the work of Axel Furlan and his [setup guide]([https://towardsdatascience.com/how-to-deploy-apache-airflow-with-celery-on-aws-ce2518dbf631](https://towardsdatascience.com/how-to-deploy-apache-airflow-with-celery-on-aws-ce2518dbf631)), but will expand upon on setup details that were pain points for my own project. 
 
 ## Step 1) Prepare Docker Image
 
