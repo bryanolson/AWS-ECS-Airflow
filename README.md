@@ -254,6 +254,9 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide](http
 |Auto-assign public IP|Enabled| 
 ## Security Group Settings
 
+Note: In order to view ECS logs within the AWS console, you will need to also enable HTTPS, Port 443, to 0.0.0.0/0
+
+
 ### Webserver Inbound Rules
 
 |                |Protocol     |Port Range  |Source|
