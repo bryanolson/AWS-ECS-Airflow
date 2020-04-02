@@ -10,7 +10,7 @@ This repository is inspired by the work of Axel Furlan and his [setup guide](htt
 
 ## Step 2) Upload Docker Image (ECR)
 
-- [Navigate to Elastic Container Registry (ECR)]([https://aws.amazon.com/ecr/](https://aws.amazon.com/ecr/))
+- Navigate to [Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/)
 - Create repository
 - Enter repository
 - View push commands
@@ -19,7 +19,7 @@ This repository is inspired by the work of Axel Furlan and his [setup guide](htt
 
 ## Step 3) Create Cluster (ECS)
 
-- Navigate to [Elastic Container Service (ECS)]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/))
+- Navigate to [Elastic Container Service (ECS)](https://aws.amazon.com/ecs/)
 - Create Cluster (named airflow-celery)
 - Select Networking Only (this guide will utilize Fargate tasks)
 - Add Cluster name
@@ -28,7 +28,7 @@ This repository is inspired by the work of Axel Furlan and his [setup guide](htt
 
 ## Step 4) Create PostGreSQL Database (RDS v9.6)
 
-- [Navigate to Relational Database Service (RDS)]([https://aws.amazon.com/rds/](https://aws.amazon.com/rds/))
+- Navigate to [Relational Database Service (RDS)](https://aws.amazon.com/rds/)
 - Create database
 - Standard Create
 - Select PostgreSQL
@@ -46,7 +46,7 @@ This repository is inspired by the work of Axel Furlan and his [setup guide](htt
 
 ## Step 5) Create Task Definitions (ECS)
 
-- Within [ECS]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/)) select Task Definitions
+- Within [ECS](https://aws.amazon.com/ecs/) select Task Definitions
 - Create 5 tasks (Flower, Redis, Scheduler, Webserver, Worker)
 
 #### Flower
@@ -190,7 +190,7 @@ This repository is inspired by the work of Axel Furlan and his [setup guide](htt
 
 ## Step 6) Create Services (ECS)
 
-- Within [ECS]([https://aws.amazon.com/ecs/](https://aws.amazon.com/ecs/)) select Cluster -> Services -> Create
+- Within [ECS](https://aws.amazon.com/ecs/) select Cluster -> Services -> Create
 - Create 5 services (Flower, Redis, Scheduler, Webserver, Worker)
 
 #### Flower Service
