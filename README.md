@@ -263,7 +263,7 @@ Note: In order to view ECS logs within the AWS console, you will need to also en
 |                |Protocol     |Port Range  |Source|
 |----------------|-------------|------------|------|
 |All TCP         |TCP|0-65535  |(Master Security Group)                  |
-|All TCP         |TCP|5432  | (PostgreSQL Security Group)     |
+|Custom TCP Rule|TCP|5432  | (PostgreSQL Security Group)     |
 |Custom TCP Rule |TCP|8080     | (Your Static IP for Web UI Access)|
 
 ### Webserver Outbound Rules
