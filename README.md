@@ -4,8 +4,9 @@ This tutorial is built off of the work of Axel Furlan and his [setup guide](http
 
 ## Step 1) Prepare Docker Image
 
-- Fork Repo
- - Modify entrypoint.sh<nolink>, airflow.cfg, Dockerfile, CeleryExecutor.yml
+- Clone [Puckel's Airflow](https://github.com/puckel/docker-airflow)
+ - Modify entrypoint.sh<nolink>, airflow.cfg, Dockerfile, CeleryExecutor.yml or replace with files in this repo
+ - Build new docker image: **docker build -t airflow . --no-cache**
 
 ## Step 2) Upload Docker Image (ECR)
 
