@@ -1,4 +1,4 @@
-# Deploying Apache Airflow on AWS
+# Deploying Apache Airflow on AWS (with ECS Fargate)
 
 This repository is inspired by the work of Axel Furlan and his [setup guide](https://towardsdatascience.com/how-to-deploy-apache-airflow-with-celery-on-aws-ce2518dbf631). 
 
